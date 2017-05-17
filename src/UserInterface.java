@@ -1,10 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by ros_crherzog on 5/9/2017.
- */
-public class UserInterface {
+public class UserInterface { 
     public static void main(String[]args){
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
