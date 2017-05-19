@@ -4,8 +4,8 @@ import java.io.*;
 
 public class ClientTest {
     public static void main(String[] args) throws IOException {
-        ArrayList<String> messagesSent = new ArrayList<String>();
-        ArrayList<String> messagesRecieved = new ArrayList<String>();
+        ArrayList<String> messagesSent = new ArrayList<>();
+        ArrayList<String> messagesRecieved = new ArrayList<>();
         int portNum = Integer.parseInt(args[0]);
 
         Socket client = new Socket("localhost",portNum) ;
@@ -22,8 +22,9 @@ public class ClientTest {
             }
             System.out.print("Server:" + fromServer);
             messagesRecieved.add(fromServer);
-            if(fromServer == "done"){
+            if(fromServer.equals("done")){
                 break;
+
             }
         }
     }
