@@ -1,3 +1,7 @@
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 public class ServerTest {
     public static void main(String[] args){
    //     ArrayList<String>  messagesSent= new ArrayList<String>();
@@ -20,7 +24,7 @@ public class ServerTest {
             }while(in.readLine() != null);
         }
         catch(IOException e){
-            System.out.print(e);
+            System.out.print("IO ERROR" + e);
 
         }
     }
