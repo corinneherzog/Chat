@@ -24,7 +24,6 @@ public class ClientTest {
             messagesRecieved.add(fromServer);
             if(fromServer.equals("done")){
                 break;
-
             }
         }
     }
