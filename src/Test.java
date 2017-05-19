@@ -9,12 +9,13 @@ public class Test{
       try{
       SocketServer server= new SocketServer();
       SocketClient client = new SocketClient();
+         server.run();
+         client.run();
       }
-      catch(IOexception e){
+      catch( e){
          System.out.print(e);
       }
-      server.run();
-      client.run();
+
    }
 
 
