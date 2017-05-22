@@ -1,30 +1,41 @@
-import java.net.Socket;
-import java.util.ArrayList;
-import java.io.*;
+package com.company;
 
-public class ClientTest {
-    public static void main(String[] args) throws IOException {
+import java.io.*;
+import java.net.Socket;
+import java.util.*;
+
+/**
+ * Created by corinne on 5/17/17.
+ */
+public class Client {
+    public static void main(String[] args){
         ArrayList<String> messagesSent = new ArrayList<>();
         ArrayList<String> messagesRecieved = new ArrayList<>();
         int portNum = Integer.parseInt(args[0]);
 
-        Socket client = new Socket("localhost",portNum) ;
-        PrintWriter out =  new PrintWriter(client.getOutputStream() , true);
-        BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
-        String fromServer;
-        String fromUser;
-        while((fromServer = in.readLine()) != null){
-            if((fromUser = userIn.readLine()) != null ){
-                messagesSent.add(fromUser);
+        try {
+            Socket socket = new Socket("localhost",portNum) ;
+            PrintWriter out =  new PrintWriter(socket.getOutputStream() , true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Scanner userIn = new Scanner(System.in);
+            String fromServer;
+            String fromUser;
+
+            while(in.readLine()!= null || userIn.nextLine() != null){
+                fromUser = userIn.nextLine();
                 out.println(fromUser);
-                System.out.print("User:" + fromUser);
+                messagesSent.add(fromUser);
+                fromServer = in.readLine();
+                messagesRecieved.add(fromServer);
+                System.out.println(fromServer);
             }
-            System.out.print("Server:" + fromServer);
-            messagesRecieved.add(fromServer);
-            if(fromServer.equals("done")){
-                break;
-            }
+            socket.close();
+        }
+
+
+        catch(IOException e){
+            System.out.println("Couldn't establish i/o" + e);
         }
     }
 }
+
