@@ -17,6 +17,7 @@ public class UserInterface {
         JButton button2 = new JButton();
         button2.setText("done");
         button2.setBackground(Color.WHITE);
+        frame.add(button1);
         frame.add(button2);
         frame.setVisible(true);
     }
