@@ -1,4 +1,4 @@
-package com.company;
+
 
 import java.io.*;
 import java.util.*;
@@ -23,13 +23,16 @@ public class ServerTest {
             String clientInput;
             String userInput;
 
-            while(in.readLine()!= null || userIn.nextLine() != null){
+            while(true){
                 userInput = userIn.nextLine();
                 out.println(userInput);
                 messagesSent.add(userInput);
                 clientInput = in.readLine();
                 System.out.println(clientInput);
                 messagesRecieved.add(clientInput);
+                if(userInput.equals("done")){
+                   break;
+                }
             }
             socket.close();
         }
