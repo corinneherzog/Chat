@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class UserInterface { 
+public class UserInterface {
     public static void main(String[]args){
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -14,7 +14,10 @@ public class UserInterface {
         JButton button1 = new JButton();
         button1.setText("send");
         button1.setBackground(Color.WHITE);
-        frame.add(button1);
+        JButton button2 = new JButton();
+        button2.setText("done");
+        button2.setBackground(Color.WHITE);
+        frame.add(button2);
         frame.setVisible(true);
     }
 }
