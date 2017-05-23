@@ -1,4 +1,4 @@
-
+package com.company;
 
 import java.io.*;
 import java.util.*;
@@ -20,25 +20,24 @@ public class ServerTest {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             Scanner userIn = new Scanner(System.in);
 
+            System.out.println("Please enter your username");
+            String userName = userIn.next();
             String clientInput;
             String userInput;
 
-            while(true){
+            while(in.readLine()!= null || userIn.nextLine() != null){
                 userInput = userIn.nextLine();
-                out.println(userInput);
+                out.println(userName + ": " + userInput);
                 messagesSent.add(userInput);
                 clientInput = in.readLine();
                 System.out.println(clientInput);
                 messagesRecieved.add(clientInput);
-                if(userInput.equals("done")){
-                   break;
-                }
             }
             socket.close();
         }
-
         catch(IOException e){
             System.out.print(e);
         }
     }
 }
+
