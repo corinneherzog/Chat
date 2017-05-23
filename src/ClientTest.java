@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by corinne on 5/17/17.
  */
-public class Client {
+public class ClientTest {
     public static void main(String[] args){
         ArrayList<String> messagesSent = new ArrayList<>();
         ArrayList<String> messagesRecieved = new ArrayList<>();
