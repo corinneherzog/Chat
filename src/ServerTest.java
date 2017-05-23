@@ -22,16 +22,19 @@ public class ServerTest {
 
             System.out.println("Please enter your username");
             String userName = userIn.next();
-            String clientInput;
-            String userInput;
+            String fromUser;
+            String fromClient;
 
-            while(in.readLine()!= null || userIn.nextLine() != null){
+            while(true){
                 userInput = userIn.nextLine();
-                out.println(userName + ": " + userInput);
-                messagesSent.add(userInput);
-                clientInput = in.readLine();
-                System.out.println(clientInput);
-                messagesRecieved.add(clientInput);
+                out.println(userName + ": " + fromUser);
+                messagesSent.add(fromUser);
+                fromClient = in.readLine();
+                System.out.println(fromClient);
+                messagesRecieved.add(fromClient);
+                if(fromUser.equals("done")){
+                    break;
+                }
             }
             socket.close();
         }
