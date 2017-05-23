@@ -25,13 +25,16 @@ public class ClientTest {
             String fromServer;
             String fromUser;
 
-            while(in.readLine()!= null || userIn.nextLine() != null){
+            while(true){
                 fromUser = userIn.nextLine();
                 out.println(userName + ": " + fromUser);
                 messagesSent.add(fromUser);
                 fromServer = in.readLine();
                 messagesRecieved.add(fromServer);
                 System.out.println(fromServer);
+                if(fromUser.equals("done"){
+                    break;
+                }
             }
             socket.close();
         }
