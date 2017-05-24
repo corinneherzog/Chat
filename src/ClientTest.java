@@ -1,46 +1,43 @@
-package com.company;
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.event.*;
 
-import java.io.*;
-import java.net.Socket;
-import java.util.*;
-
-/**
- * Created by corinne on 5/17/17.
- */
-public class ClientTest {
-    public static void main(String[] args){
-        ArrayList<String> messagesSent = new ArrayList<>();
-        ArrayList<String> messagesRecieved = new ArrayList<>();
-        int portNum = Integer.parseInt(args[0]);
-
-        try {
-            Socket socket = new Socket("localhost",portNum) ;
-            PrintWriter out =  new PrintWriter(socket.getOutputStream() , true);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            Scanner userIn = new Scanner(System.in);
-
-            System.out.println("Please enter your username");
-            String userName = userIn.next();
-
-            String fromServer;
-            String fromUser;
-
-            while(true){
-                fromUser = userIn.nextLine();
-                out.println(userName + ": " + fromUser);
-                messagesSent.add(fromUser);
-                fromServer = in.readLine();
-                messagesRecieved.add(fromServer);
-                System.out.println(fromServer);
-                if(fromUser.equals("done"){
-                    break;
-                }
-            }
-            socket.close();
-        }
-
-        catch(IOException e){
-            System.out.println("Couldn't establish i/o" + e);
-        }
-    }
+public class UserInterface {
+   private JFrame frame;
+   private JButton sendButton;
+   private JButton doneButton;
+   private JTextArea area;
+   public UserInterface{
+       this.frame = new JFrame();
+       this.sendButton = new JButton();
+       this.doneButton = new JButton();
+   }
+   public void creatingChatFrame{
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.setLayout(new FlowLayout());
+      frame.setSize(new Dimension(300,175));
+      frame.setTitle("Chat Box");
+      this.area = new JTextArea(5,20);
+      frame.add(area);
+      frame.add(new JScrollPane(area));
+      creatingChatButtons();
+      frame.setVisible(true);
+   }
+   
+   public void creatingChatButtons{
+      sendButton.setText("send");
+      sendButton.setBackground(Color.WHITE);
+      doneButton.setText("done");
+      doneButton.setBackground(Color.WHITE);
+      frame.add(sendButton);
+      frame.add(doneButton);
+   
+   } 
+   
+   public String sentMessageAdder(probablysomethingaboutthemessage){
+      return probably the message;
+   }
+   public void endProgram(probablysomethingaboutthemessage){
+      break;
+   }
 }
