@@ -38,6 +38,6 @@ public class UserInterface {
       return probably the message;
    }
    public void endProgram(probablysomethingaboutthemessage){
-      break;
+      System.exit(0);
    }
 }
