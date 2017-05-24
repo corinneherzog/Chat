@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.event.*;
 
 public class UserInterface {
    private JFrame frame;
