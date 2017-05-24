@@ -24,7 +24,7 @@ public class UserInterface {
       frame.setVisible(true);
    }
    
-   public void creatingChatButtons{
+   public void creatingChatButtons(){
       sendButton.setText("send");
       sendButton.setBackground(Color.WHITE);
       doneButton.setText("done");
