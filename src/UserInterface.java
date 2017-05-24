@@ -12,7 +12,7 @@ public class UserInterface {
        this.sendButton = new JButton();
        this.doneButton = new JButton();
    }
-   public void creatingChatFrame{
+   public void creatingChatFrame(){
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setLayout(new FlowLayout());
       frame.setSize(new Dimension(300,175));
@@ -24,7 +24,7 @@ public class UserInterface {
       frame.setVisible(true);
    }
    
-   public void creatingChatButtons{
+   public void creatingChatButtons(){
       sendButton.setText("send");
       sendButton.setBackground(Color.WHITE);
       doneButton.setText("done");
