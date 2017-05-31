@@ -54,7 +54,7 @@ public class Server {
         }
 
         public Message storeData(byte[] binput , Gson gson){
-            String jSon = DatatypeConverter.printBase64Binary(binput);
+            String jSon = new String(binput);
             System.out.println(jSon); // for testing
             Message message = gson.fromJson(jSon, Message.class);
             message.timeStamp = new Timestamp(System.currentTimeMillis());
