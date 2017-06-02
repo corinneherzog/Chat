@@ -1,9 +1,10 @@
 /**
  * Created by corinne on 5/24/17.
  */
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+/**
+ * Created by corinne on 5/24/17.
+ */
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,12 +16,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import javax.xml.bind.DatatypeConverter;
-
 public class Server {
     static HashMap<String, ArrayList<Message>> hm = new HashMap<>();
-
-    static byte [] messageOut = new byte[2000];
+    static String messageOut;
 
     public static void main(String[] args) throws IOException{
         HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
@@ -32,39 +30,34 @@ public class Server {
     static class Handler implements HttpHandler {
         public void handle(HttpExchange hte) throws IOException{
         final Gson gson = new Gson();
-        InputStream is = hte.getRequestBody();
-        byte [] binput = new byte[1000];
-        int size = is.read(binput,0,binput.length);
-
-        byte [] bresponse;
+        BufferedReader in = new BufferedReader(new InputStreamReader(hte.getRequestBody()));
+        String response;
 
         String cmd = hte.getRequestMethod();
         if (cmd.equals("POST")) {
-            Message currentMessage = storeData(binput , gson);
-            messageOut = gson.toJson(currentMessage).getBytes();
-            bresponse = "".getBytes();
-
-        } else {
-            bresponse = messageOut;
+            Message currentMessage = storeData(in, gson);
+            messageOut = gson.toJson(currentMessage);
+            response = "";
         }
-        hte.sendResponseHeaders(200,bresponse.length);
-        OutputStream os = hte.getResponseBody();
-        os.write(bresponse);
-        os.close();
+        else {
+            response = messageOut;
+        }
+        hte.sendResponseHeaders(200, response.getBytes().length);
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(hte.getResponseBody()));
+
+        out.write(response);
+        out.close();
         }
 
-        public Message storeData(byte[] binput , Gson gson){
-            String jSon = new String(binput);
-            System.out.println(jSon); // for testing
-            Message message = gson.fromJson(jSon, Message.class);
+        public Message storeData(BufferedReader in,Gson gson) throws IOException{
+            Message message = gson.fromJson(in, Message.class); //this is where the error is
             message.timeStamp = new Timestamp(System.currentTimeMillis());
-            String reciever = message.reciever;
-            System.out.println(message); //for testing
-            if((!(hm.containsKey(reciever)))){
+            String receiver = message.receiver;
+            if((!(hm.containsKey(receiver)))) {
                 ArrayList<Message> list = new ArrayList<>();
-                hm.put(reciever, list);
+                hm.put(receiver, list);
             }
-            hm.get(reciever).add(message);
+            hm.get(receiver).add(message);
             return message;
         }
     }
