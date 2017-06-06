@@ -52,7 +52,7 @@ public class Server {
         public Message storeData(BufferedReader in,Gson gson) throws IOException{
             Message message = gson.fromJson(in, Message.class); //this is where the error is
             message.timeStamp = new Timestamp(System.currentTimeMillis());
-            String receiver = message.receiver;
+            String receiver = message.to;
             if((!(hm.containsKey(receiver)))) {
                 ArrayList<Message> list = new ArrayList<>();
                 hm.put(receiver, list);
