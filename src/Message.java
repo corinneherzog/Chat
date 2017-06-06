@@ -4,12 +4,12 @@ import java.sql.Timestamp;
  * Created by corinne on 5/28/17.
  */
 public class Message {
-    String sender;
-    String reciever;
+    String to;
+    String from;
     Timestamp timeStamp;
-    String text;
+    String message;
 
-    public Message(String sender, String reciever , Timestamp timeStamp , String text){
+    public Message(String sender, String reciever , Timestamp timeStamp , String message){
         this.sender = sender;
         this.reciever = reciever;
         this.timeStamp = timeStamp;
@@ -17,6 +17,6 @@ public class Message {
     }
 
     public String toString(){
-        return("Sender:" + sender + "Reciever:" + reciever + " Time Stamp:" + timeStamp.toString() + "Text:" + text );
+        return("Sender:" + to + "Reciever:" + from + " Time Stamp:" + timeStamp.toString() + "Text:" + message );
     }
 }
