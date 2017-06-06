@@ -9,11 +9,11 @@ public class Message {
     Timestamp timeStamp;
     String message;
 
-    public Message(String sender, String reciever , Timestamp timeStamp , String message){
-        this.sender = sender;
-        this.reciever = reciever;
+    public Message(String to, String from , Timestamp timeStamp , String message){
+        this.to = to;
+        this.from = from;
         this.timeStamp = timeStamp;
-        this.text = text;
+        this.message = message;
     }
 
     public String toString(){
