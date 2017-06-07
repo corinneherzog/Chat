@@ -37,7 +37,6 @@ public class Server {
         String user = headers.getFirst("user");
         if (cmd.equals("POST")) {
             storeData(in, gson ,user);
-           // messageOut = gson.toJson(currentMessage);
             response = "";
         }
         else if(cmd.equals("GET")){
@@ -54,7 +53,7 @@ public class Server {
 
         public void storeData(BufferedReader in,Gson gson, String user) throws IOException{
             String json = in.readLine();
-            Message message = gson.fromJson(json, Message.class); //this is where the error is
+            Message message = gson.fromJson(json, Message.class);
             message.timeStamp = new Timestamp(System.currentTimeMillis());
             message.from = user;
             String receiver = message.to;
