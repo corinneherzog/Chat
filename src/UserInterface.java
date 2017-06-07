@@ -7,10 +7,8 @@ public class UserInterface {
    JButton sendButton;
    JButton doneButton;
    JTextArea area;
-   public UserInterface{
-       this.frame = new JFrame();
-       this.sendButton = new JButton();
-       this.doneButton = new JButton();
+   public static void main(String[] args){
+
    }
    public void creatingChatFrame(){
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,11 +31,5 @@ public class UserInterface {
       frame.add(doneButton);
    
    } 
-   
-   public String sentMessageAdder(probablysomethingaboutthemessage){
-      return probably the message;
-   }
-   public void endProgram(probablysomethingaboutthemessage){
-      break;
-   }
+
 }

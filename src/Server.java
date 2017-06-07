@@ -17,7 +17,7 @@ import com.sun.net.httpserver.Headers;
 
 public class Server {
     static HashMap<String, ArrayList<Message>> hm = new HashMap<>();
-    static String messageOut;
+
 
     public static void main(String[] args) throws IOException{
         HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
