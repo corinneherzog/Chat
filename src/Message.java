@@ -15,6 +15,9 @@ public class Message {
         this.timeStamp = timeStamp;
         this.message = message;
     }
+    public Message(){
+
+    }
 
     public String toString(){
         return("Sender: " + receiver + ", Receiver: " + sender + ", Time Stamp: " + timeStamp.toString() + ", Message: " + message );
