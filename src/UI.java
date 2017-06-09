@@ -1,12 +1,12 @@
-import com.google.gson.Gson;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 
 /**
- * Created by corinne on 6/7/17.
+ * Created by simone on 6/8/17.
  */
 public class UI {
     Message message;
@@ -15,7 +15,7 @@ public class UI {
     JButton send;
     JButton done;
     JTextField userTextBox;
-    JTextField textBox;
+    JTextArea textBox;
 
     public static void main(String[] args){
         UI ui = new UI();
@@ -26,31 +26,38 @@ public class UI {
         panel = new JPanel();
         send = new JButton();
         done = new JButton();
-
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
-        frame.setSize(new Dimension(300,175));
+        frame.setSize(new Dimension(350,180));
         frame.setTitle("Chat");
         userTextBox = new JTextField(10);
-        textBox = new JTextField(10);
-
-
-
+        textBox = new JTextArea(5,20);
         send.setText("send");
         send.setBackground(Color.WHITE);
         done.setText("done");
         done.setBackground(Color.WHITE);
-        frame.add(new JScrollPane());
-        frame.add(send);
-        frame.add(done);
         frame.add(panel);
+        frame.add(new JLabel("Sender: "));
         frame.add(textBox);
         frame.add(userTextBox);
+        frame.add(send);
+        frame.add(done);
+        frame.add(new JLabel("Message"));
+        frame.add(new JScrollPane(textBox));
         frame.setVisible(true);
 
-
-
+        send.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                String user= userTextBox.getText();
+                String text= textBox.getText();
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Message message = new Message( "Corinne", user , time , text);
+                System.out.println(message.toString());
+            }
+        });
+        /*
         userTextBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 message.to = userTextBox.getText();
@@ -65,5 +72,6 @@ public class UI {
                         // now we just need to figure out how to send it
             }
         });
+        */
     }
 }
