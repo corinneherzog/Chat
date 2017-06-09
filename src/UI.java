@@ -57,21 +57,5 @@ public class UI {
                 System.out.println(message.toString());
             }
         });
-        /*
-        userTextBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                message.to = userTextBox.getText();
-            }
-        });
-
-        textBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                message.message = userTextBox.getText();
-                Gson gson = new Gson();
-                String json = gson.toJson(message);
-                        // now we just need to figure out how to send it
-            }
-        });
-        */
     }
 }
