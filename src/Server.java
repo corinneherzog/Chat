@@ -55,8 +55,8 @@ public class Server {
             String json = in.readLine();
             Message message = gson.fromJson(json, Message.class);
             message.timeStamp = new Timestamp(System.currentTimeMillis());
-            message.from = user;
-            String receiver = message.to;
+            message.sender = user;
+            String receiver = message.receiver;
             if((!(hm.containsKey(receiver)))) {
                 ArrayList<Message> list = new ArrayList<>();
                 hm.put(receiver, list);

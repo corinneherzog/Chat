@@ -9,15 +9,14 @@ public class Message {
     Timestamp timeStamp;
     String message;
 
-    public Message(String goingTo, String fromWho , Timestamp timeStamp , String message){
+    public Message(String goingTo, String fromWho , String message){
         this.receiver = goingTo;
         this.sender = fromWho;
         this.timeStamp = timeStamp;
         this.message = message;
     }
-    public Message(){
 
-    }
+
 
     public String toString(){
         return("Sender: " + receiver + ", Receiver: " + sender + ", Time Stamp: " + timeStamp.toString() + ", Message: " + message );
