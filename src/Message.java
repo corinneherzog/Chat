@@ -1,24 +1,21 @@
 import java.sql.Timestamp;
 
-/**
- * Created by corinne on 5/28/17.
- */
 public class Message {
     String receiver;
     String sender;
     Timestamp timeStamp;
-    String message;
+    String text;
 
-    public Message(String goingTo, String fromWho , String message){
-        this.receiver = goingTo;
-        this.sender = fromWho;
-        this.timeStamp = timeStamp;
-        this.message = message;
+    public Message( String receiver , String message){
+        this.receiver = receiver;
+        this.text = message;
     }
 
+    public Message(){
 
+    }
 
     public String toString(){
-        return("Sender: " + receiver + ", Receiver: " + sender + ", Time Stamp: " + timeStamp.toString() + ", Message: " + message );
+        return("Sender: " + receiver + ", Receiver: " + sender + ", Time Stamp: " + timeStamp.toString() + ", Text: " + text);
     }
 }

@@ -18,7 +18,6 @@ import com.sun.net.httpserver.Headers;
 public class Server {
     static HashMap<String, ArrayList<Message>> hm = new HashMap<>();
 
-
     public static void main(String[] args) throws IOException{
         HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
         server.createContext("/messages" , new Handler());
@@ -42,7 +41,6 @@ public class Server {
         else if(cmd.equals("GET")){
             ArrayList<Message> list = hm.get(user);
             response = gson.toJson(list);
-
         }
         hte.sendResponseHeaders(200, response.getBytes().length);
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(hte.getResponseBody()));
@@ -61,7 +59,13 @@ public class Server {
                 ArrayList<Message> list = new ArrayList<>();
                 hm.put(receiver, list);
             }
+            if(!(hm.containsKey(user))){
+                ArrayList<Message> list = new ArrayList<>();
+                hm.put(user, list);
+            }
             hm.get(receiver).add(message);
+            hm.get(user).add(message);
         }
     }
 }
+
