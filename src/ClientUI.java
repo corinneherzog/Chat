@@ -23,10 +23,10 @@ public class ClientUI {
       frame.setSize(new Dimension(250, 300));
       frame.add(panel1);
       frame.add(new JLabel("UserName: " + UserName));
-      JTextArea textBox = new JTextArea(20, 10);
+      JTextArea textBox = new JTextArea(10, 10);
       textBox.setBounds(20, 20, 10,20);
       frame.add (textBox);
-      JTextArea textBox2 = new JTextArea(20, 10);
+      JTextArea textBox2 = new JTextArea(10, 10);
       textBox2.setBounds(10, 20, 50, 30);
       frame.add (textBox2);
       frame.add(new JScrollPane(textBox));
