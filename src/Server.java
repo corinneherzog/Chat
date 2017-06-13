@@ -46,7 +46,7 @@ public class Server {
                     listOut.add(list.get(i));
                 }
             }
-            prevTimeStamp = new Timestamp(System.currentTimeMillis());
+            prevTimeStamp.setTime(System.currentTimeMillis());
             response = gson.toJson(listOut);
         }
         hte.sendResponseHeaders(200, response.getBytes().length);
