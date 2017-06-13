@@ -12,11 +12,11 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 import com.sun.net.httpserver.Headers;
 
 public class Server {
     static HashMap<String, ArrayList<Message>> hm = new HashMap<>();
+    static Timestamp prevTimeStamp = new Timestamp(System.currentTimeMillis());
 
     public static void main(String[] args) throws IOException{
         HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
@@ -40,7 +40,14 @@ public class Server {
         }
         else if(cmd.equals("GET")){
             ArrayList<Message> list = hm.get(user);
-            response = gson.toJson(list);
+            ArrayList<Message> listOut = new ArrayList<>();
+            for(int i = 0 ; i < list.size() ; i++){
+                if(list.get(i).timeStamp.after(prevTimeStamp)){
+                    listOut.add(list.get(i));
+                }
+            }
+            prevTimeStamp = new Timestamp(System.currentTimeMillis());
+            response = gson.toJson(listOut);
         }
         hte.sendResponseHeaders(200, response.getBytes().length);
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(hte.getResponseBody()));
