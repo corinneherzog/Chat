@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 /**
@@ -13,14 +14,9 @@ public class ClientUI {
       String userName;
       String reciever;
 
-      public static void main(String[] args){
-         ClientUI ui = new ClientUI("Corinne");
-      }
-
-      public ClientUI(String UserName){
+      public ClientUI(){
          frame = new JFrame();
          panel1 = new JPanel();
-         this.userName = UserName;
          UI();
       }
       public void UI(){
@@ -28,34 +24,41 @@ public class ClientUI {
          frame.setLayout(new FlowLayout());
          frame.setSize(new Dimension(250, 300));
          frame.add(panel1);
-         JTextField userEnter = new JTextField();
-         frame.add(userEnter);
-         userEnter.addActionListener(new ActionListener(){
-            public void actionPerformed(){
-               userName = userEnter.getText();
-               userEnter.setEditable(false);
-            }
-         });
-
+         JTextField userTextBox = new JTextField(10);
+         frame.add(new JLabel("UserName: "));
+         frame.add(userTextBox);
          textPane = new JTextPane();
          textPane.setSize(500,500);
          textPane.setEditable(false);
+         frame.setVisible(true);
         // textPane.setBounds()
+         userTextBox.addActionListener(new ActionListener() {
+              public void actionPerformed(ActionEvent e) {
+                  userName= userTextBox.getText();
+                  frame.remove(userTextBox);
+                  frame.add(new JLabel(userName));
+                  frame.setVisible(true);
+                  textBoxMaker();
+              }
+          });
+      }
+      public void textBoxMaker(){
          frame.add(textPane);
          frame.setVisible(true);
       }
-
       public void addTextBoxes(ArrayList<Message> list){
+          Container content = frame.getContentPane();
+          content.setLayout(new GridLayout(0, 1));
          for(int i = 0 ; i < list.size() ; i++){
             Message message = list.get(i);
             JTextField textBox = new JTextField();
             textPane.add(textBox);
             textBox.setText(message.text);
             if(message.sender.equals(userName)){
-               //set alignment left
+                textBox.setHorizontalAlignment(JTextField.LEFT);
             }
             else{
-               //set alignment right
+                textBox.setHorizontalAlignment(JTextField.RIGHT);
             }
             textBox.setVisible(true);
          }
