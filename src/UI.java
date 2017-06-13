@@ -1,9 +1,9 @@
 
 import com.google.gson.Gson;
-import org.apache.http.HttpResponse;
+//import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
+//import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.client.methods.HttpGet;
 
@@ -61,7 +61,7 @@ public class UI {
                 String text = textBox.getText();
                 Message message = new Message(receiver, text);
                 String jSon = gson.toJson(message);
-                postRequest(jSon);
+             //   postRequest(jSon);
             }
         });
 
@@ -77,7 +77,7 @@ public class UI {
         */
     }
 
-    public static void postRequest(String jSon) {
+  /*  public static void postRequest(String jSon) {
         HttpPost post = new HttpPost(url);
         post.setHeader("Content-type", "application/json");
         post.setHeader("user", user);
@@ -94,7 +94,7 @@ public class UI {
         }
     }
     //OK SO THE POST WORKS!!!
-}
+
 
   /*      public static ArrayList<Message> getRequest(Gson gson) {
             HttpGet get = new HttpGet(url);
@@ -115,6 +115,6 @@ public class UI {
             }
             return list;
 
-        }
+        } */
 }
 
