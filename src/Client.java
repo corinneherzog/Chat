@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -10,13 +11,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
  * Created by corinne on 6/13/17.
  */
 public class Client {
-    String url;  ;
+    String url;
     final HttpClient httpClient = HttpClientBuilder.create().build();
     final Gson gson = new Gson();
 
@@ -26,23 +28,27 @@ public class Client {
     }
 
     public ArrayList<Message> getRequest(String user) {
+        final HttpClient httpClient = HttpClientBuilder.create().build();
+        String url = "http://localhost:8000/messages";
+        final Gson gson = new Gson();
         HttpGet get = new HttpGet(url);
         get.setHeader("accept", "application/json");
-        get.setHeader("user",user );
-        ArrayList<Message> list = new ArrayList<>();
+        get.setHeader("user", user);
+        Type collectionType = new TypeToken<ArrayList<Message>>() {
+        }.getType();
+
+
         try {
             HttpResponse response = httpClient.execute(get);
             BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String jSon = br.readLine();
+            return gson.fromJson(jSon, collectionType);
 
-            while (br.ready()) {
-                Message message = gson.fromJson(br, Message.class);
-                list.add(message);
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return list;
-
+        return new ArrayList<Message>();
     }
 
     public void postRequest(Message message) {

@@ -27,40 +27,37 @@ public class MessageViewerUI {
           MessageViewerUI ui = new MessageViewerUI(new Client(url));
       }
 
-      public MessageViewerUI(Client client){
-         this.client = client;
-         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         frame.setLayout(new FlowLayout());
-         frame.setSize(new Dimension(250, 300));
-         frame.add(panel1);
-         JTextField userTextBox = new JTextField(8);
-         frame.add(userTextBox);
-         textPane.setSize(500,500);
-         textPane.setEditable(false);
-         frame.add(refresh);
-         frame.setVisible(true);
+      public MessageViewerUI(Client client) {
+          this.client = client;
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.setLayout(new FlowLayout());
+          frame.setSize(new Dimension(250, 300));
+          frame.add(panel1);
+          JTextField userTextBox = new JTextField(8);
+          frame.add(userTextBox);
+          textPane.setSize(500, 500);
+          textPane.setEditable(false);
+          frame.add(refresh);
+          frame.setVisible(true);
 
 
-        // textPane.setBounds()
-          refresh.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e){
-                  ArrayList<Message> list = client.getRequest(userName);
-                  addTextBoxes(list);
-              }
-          });
-
-         userTextBox.addActionListener(new ActionListener() {
-             public void actionPerformed(ActionEvent e) {
-                  userName= userTextBox.getText();
-                  frame.remove(userTextBox);
-                  frame.add(new JLabel(userName));
-                  frame.setVisible(true);
-
+          // textPane.setBounds()
+          refresh.addActionListener(e -> {
+              ArrayList<Message> list = client.getRequest(userName);
+              addTextBoxes(list);
 
           });
 
+          userTextBox.addActionListener(e -> {
+              userName = userTextBox.getText();
+              frame.remove(userTextBox);
+              frame.add(new JLabel(userName));
+              frame.setVisible(true);
 
 
+          });
+
+      }
 
       public void addTextBoxes(ArrayList<Message> list){
           Container content = frame.getContentPane();

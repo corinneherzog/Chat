@@ -53,13 +53,12 @@ public class SendUI {
         frame.setVisible(true);
         Gson gson = new Gson();
 
-        send.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String receiver = userTextBox.getText();
-                String text = textBox.getText();
-                Message message = new Message(receiver, text);
-                client.postRequest(message);
-            }
+        send.addActionListener(e ->  {
+            String receiver = userTextBox.getText();
+            String text = textBox.getText();
+            Message message = new Message(receiver, text);
+            client.postRequest(message);
+
         });
 
     }
