@@ -16,8 +16,8 @@ import java.util.ArrayList;
  * Created by corinne on 6/13/17.
  */
 public class Client {
-    String url;  //"http://localhost:8000/messages";
-    final HttpClient client = HttpClientBuilder.create().build();
+    String url;  ;
+    final HttpClient httpClient = HttpClientBuilder.create().build();
     final Gson gson = new Gson();
 
     public Client(String url){
@@ -27,15 +27,16 @@ public class Client {
 
     public ArrayList<Message> getRequest(String user) {
         HttpGet get = new HttpGet(url);
-        get.setHeader("Content-type", "application/json");
+        get.setHeader("accept", "application/json");
         get.setHeader("user",user );
         ArrayList<Message> list = new ArrayList<>();
         try {
-            HttpResponse response = client.execute(get);
+            HttpResponse response = httpClient.execute(get);
             BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
             while (br.ready()) {
-                list.add(gson.fromJson(br, Message.class));
+                Message message = gson.fromJson(br, Message.class);
+                list.add(message);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,14 +48,14 @@ public class Client {
     public void postRequest(Message message) {
         String jSon = gson.toJson(message);
         HttpPost post = new HttpPost(url);
-        post.setHeader("Content-type", "application/json");
+        post.setHeader("accept", "application/json");
         post.setHeader("user", message.sender);
 
         try {
             StringEntity input = new StringEntity(jSon);
             input.setContentType("application/json");
             post.setEntity(input);
-            client.execute(post);
+            httpClient.execute(post);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
