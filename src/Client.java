@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-/**
+/*
  * Created by corinne on 6/13/17.
  */
 public class Client {
