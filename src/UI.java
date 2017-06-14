@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 //import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.client.methods.HttpGet;
 
@@ -22,11 +23,17 @@ import java.util.ArrayList;
  * Created by simone on 6/8/17.
  */
 public class UI {
-    static String url = "http://localhost:8000/messages";
+    static String url;
     static HttpClient client = HttpClientBuilder.create().build();
     static String user = "Corinne";
 
     public static void main(String[] args) {
+        if(args[0].length() > 0){
+            url = args[0];
+        }
+        else{
+            url = "http://localhost:8000/messages";
+        }
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         JButton send = new JButton();
@@ -54,15 +61,20 @@ public class UI {
         frame.add(new JScrollPane(textBox));
         frame.setVisible(true);
         Gson gson = new Gson();
+        ClientUI clientui = new ClientUI();
+        ArrayList<Message> list = new ArrayList<>();
+        Message message2 = new Message("Corinne", "Brendan" , "hi");
+        Message message1 = new Message("Brendan" , "Corinne" , "hello");
+        list.add(message2);
+        list.add(message1);
+        clientui.addTextBoxes(list);
 
-        send.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String receiver = userTextBox.getText();
-                String text = textBox.getText();
-                Message message = new Message(receiver, text);
-                String jSon = gson.toJson(message);
-             //   postRequest(jSon);
-            }
+        send.addActionListener(e -> {
+            String receiver = userTextBox.getText();
+            String text = textBox.getText();
+            Message message = new Message(receiver, text);
+            String jSon = gson.toJson(message);
+            postRequest(jSon);
         });
 
       /*  refresh.addActionListener(new ActionListener() {
@@ -77,7 +89,7 @@ public class UI {
         */
     }
 
-  /*  public static void postRequest(String jSon) {
+   public static void postRequest(String jSon) {
         HttpPost post = new HttpPost(url);
         post.setHeader("Content-type", "application/json");
         post.setHeader("user", user);
@@ -94,27 +106,5 @@ public class UI {
         }
     }
     //OK SO THE POST WORKS!!!
-
-
-  /*      public static ArrayList<Message> getRequest(Gson gson) {
-            HttpGet get = new HttpGet(url);
-            get.setHeader("Content-type", "application/json");
-            get.setHeader("user", "Corinne"); //FIX THIS LATER
-            //You want the two users to be the same but for testing it is like this -- add a username button
-            ArrayList<Message> list = new ArrayList<>();
-
-            try {
-                HttpResponse response = client.execute(get);
-                BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-
-                while (br.readLine() != null) {
-                    list.add(gson.fromJson(br, Message.class));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return list;
-
-        } */
 }
 

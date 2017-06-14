@@ -11,7 +11,7 @@ public class ClientUI {
       JFrame frame;
       JPanel panel1;
       JTextPane textPane;
-      String userName;
+      String userName = "Corinne";
       String reciever;
 
       public ClientUI(){
@@ -49,8 +49,7 @@ public class ClientUI {
       public void addTextBoxes(ArrayList<Message> list){
           Container content = frame.getContentPane();
           content.setLayout(new GridLayout(0, 1));
-         for(int i = 0 ; i < list.size() ; i++){
-            Message message = list.get(i);
+         for(Message message : list){
             JTextField textBox = new JTextField();
             textPane.add(textBox);
             textBox.setText(message.text);
@@ -62,6 +61,5 @@ public class ClientUI {
             }
             textBox.setVisible(true);
          }
-
       }
    }

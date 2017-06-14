@@ -6,9 +6,13 @@ public class Message {
     Timestamp timeStamp;
     String text;
 
-    public Message( String receiver , String message){
+    public Message( String receiver , String text){
         this.receiver = receiver;
-        this.text = message;
+        this.text = text;
+    }
+    public Message( String sender , String receiver , String text){
+        this.receiver = receiver;
+        this.text = text;
     }
 
     public Message(){
