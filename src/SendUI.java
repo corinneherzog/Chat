@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 public class SendUI {
     static String url;
-    static HttpClient client = HttpClientBuilder.create().build();
     static String user = "Corinne";
 
     public static void main(String[] args) {
@@ -28,12 +27,14 @@ public class SendUI {
         else{
             url = "http://localhost:8000/messages";
         }
-        JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
-        JButton send = new JButton();
-        JButton refresh = new JButton();
-        JTextField userTextBox = new JTextField(10);
-        JTextArea textBox = new JTextArea(5, 20);
+        Client client = new Client(url);
+
+        final JFrame frame = new JFrame();
+        final JPanel panel = new JPanel();
+        final JButton send = new JButton();
+        final JButton refresh = new JButton();
+        final JTextField userTextBox = new JTextField(10);
+        final JTextArea textBox = new JTextArea(5, 20);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
@@ -55,49 +56,15 @@ public class SendUI {
         frame.add(new JScrollPane(textBox));
         frame.setVisible(true);
         Gson gson = new Gson();
-        MessageViewerUI clientui = new MessageViewerUI();
-        ArrayList<Message> list = new ArrayList<>();
-        Message message2 = new Message("Corinne", "Brendan" , "hi");
-        Message message1 = new Message("Brendan" , "Corinne" , "hello");
-        list.add(message2);
-        list.add(message1);
-        clientui.addTextBoxes(list);
 
         send.addActionListener(e -> {
             String receiver = userTextBox.getText();
             String text = textBox.getText();
             Message message = new Message(receiver, text);
-            String jSon = gson.toJson(message);
-            postRequest(jSon);
+            client.postRequest(message);
         });
 
-      /*  refresh.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<Message> list = getRequest(gson);
-                for (int i = 0; i < list.size(); i++)
-                    textBox.setText(list.get(i).text);
-
-            }
-
-        });
-        */
     }
 
-   public static void postRequest(String jSon) {
-        HttpPost post = new HttpPost(url);
-        post.setHeader("Content-type", "application/json");
-        post.setHeader("user", user);
-
-        try {
-            StringEntity input = new StringEntity(jSon);
-            input.setContentType("application/json");
-            post.setEntity(input);
-            client.execute(post);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
 

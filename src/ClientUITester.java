@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class ClientUITester {
    public static void main(String[] args){
-      MessageViewerUI  hi = new MessageViewerUI ();
+      MessageViewerUI  hi = new MessageViewerUI (new Client("http://localhost:8000/messages"));
       Message message1 = new Message("Corinne", "Hi");
       message1.sender = "Simone";
       Message message2 = new Message("Simone", "No");
@@ -9,12 +9,9 @@ public class ClientUITester {
       ArrayList<Message> arrayMessage = new ArrayList<Message>();
       arrayMessage.add(message1);
       arrayMessage.add(message2);
-      while(true){
-         if(hi.hi == true){
-            hi.addTextBoxes(arrayMessage);
-            break;
-         }
-      }
-   }
+      hi.addTextBoxes(arrayMessage);
 
+
+   }
 }
+

@@ -8,41 +8,56 @@ import java.util.ArrayList;
  * Created by corinne on 6/11/17.
  */
 public class MessageViewerUI {
-      boolean hi = false;
-      JFrame frame;
-      JPanel panel1;
-      JTextPane textPane;
-      String userName;
-      String reciever;
 
-      public ClientUI(){
-         frame = new JFrame();
-         panel1 = new JPanel();
-         UI();
+      final JFrame frame = new JFrame();
+      final JPanel panel1 = new JPanel();
+      final JTextPane textPane = new JTextPane();
+      final JButton refresh = new JButton();
+      String userName = "Corinne";
+      Client client;
+
+      public static void main(String[] args){
+          String url;
+          if(args.length > 0){
+               url = args[0];
+          }
+          else{
+              url ="http://localhost:8000/messages";
+          }
+          MessageViewerUI ui = new MessageViewerUI(new Client(url));
       }
-      public void UI(){
+
+      public MessageViewerUI(Client client){
+         this.client = client;
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          frame.setLayout(new FlowLayout());
          frame.setSize(new Dimension(250, 300));
          frame.add(panel1);
          JTextField userTextBox = new JTextField(8);
-         frame.add(new JLabel("UserName: "));
          frame.add(userTextBox);
-         textPane = new JTextPane();
          textPane.setSize(500,500);
          textPane.setEditable(false);
+         frame.add(refresh);
          frame.setVisible(true);
+
+
         // textPane.setBounds()
-         userTextBox.addActionListener(new ActionListener() {
-              public void actionPerformed(ActionEvent e) {
+         userTextBox.addActionListener(e -> {
                   userName= userTextBox.getText();
                   frame.remove(userTextBox);
                   frame.add(new JLabel(userName));
                   frame.setVisible(true);
-                  hi = true;
-              }
+
+
           });
+
+         refresh.addActionListener(e ->{
+                 ArrayList<Message> list = client.getRequest(userName);
+                 addTextBoxes(list);
+
+         });
       }
+
 
       public void addTextBoxes(ArrayList<Message> list){
           Container content = frame.getContentPane();
