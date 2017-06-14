@@ -7,14 +7,14 @@ import java.util.ArrayList;
 /**
  * Created by corinne on 6/11/17.
  */
-public class ClientUI {
+public class MessageViewerUI {
       JFrame frame;
       JPanel panel1;
       JTextPane textPane;
       String userName = "Corinne";
       String reciever;
 
-      public ClientUI(){
+      public MessageViewerUI(){
          frame = new JFrame();
          panel1 = new JPanel();
          UI();

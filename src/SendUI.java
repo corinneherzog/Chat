@@ -6,23 +6,17 @@ import org.apache.http.client.methods.HttpPost;
 //import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.client.methods.HttpGet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
  * Created by simone on 6/8/17.
  */
-public class UI {
+public class SendUI {
     static String url;
     static HttpClient client = HttpClientBuilder.create().build();
     static String user = "Corinne";
@@ -61,7 +55,7 @@ public class UI {
         frame.add(new JScrollPane(textBox));
         frame.setVisible(true);
         Gson gson = new Gson();
-        ClientUI clientui = new ClientUI();
+        MessageViewerUI clientui = new MessageViewerUI();
         ArrayList<Message> list = new ArrayList<>();
         Message message2 = new Message("Corinne", "Brendan" , "hi");
         Message message1 = new Message("Brendan" , "Corinne" , "hello");
@@ -105,6 +99,5 @@ public class UI {
             e.printStackTrace();
         }
     }
-    //OK SO THE POST WORKS!!!
 }
 
