@@ -42,7 +42,15 @@ public class MessageViewerUI {
 
 
         // textPane.setBounds()
-         userTextBox.addActionListener(e -> {
+          refresh.addActionListener(new ActionListener() {
+              public void actionPerformed(ActionEvent e){
+                  ArrayList<Message> list = client.getRequest(userName);
+                  addTextBoxes(list);
+              }
+          });
+
+         userTextBox.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent e) {
                   userName= userTextBox.getText();
                   frame.remove(userTextBox);
                   frame.add(new JLabel(userName));
@@ -51,12 +59,7 @@ public class MessageViewerUI {
 
           });
 
-         refresh.addActionListener(e ->{
-                 ArrayList<Message> list = client.getRequest(userName);
-                 addTextBoxes(list);
 
-         });
-      }
 
 
       public void addTextBoxes(ArrayList<Message> list){
