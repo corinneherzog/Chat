@@ -1,12 +1,8 @@
 
 import com.google.gson.Gson;
-//import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-//import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -57,14 +53,15 @@ public class SendUI {
         frame.setVisible(true);
         Gson gson = new Gson();
 
-        send.addActionListener(e -> {
-            String receiver = userTextBox.getText();
-            String text = textBox.getText();
-            Message message = new Message(receiver, text);
-            client.postRequest(message);
+        send.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String receiver = userTextBox.getText();
+                String text = textBox.getText();
+                Message message = new Message(receiver, text);
+                client.postRequest(message);
+            }
         });
 
     }
 
 }
-
