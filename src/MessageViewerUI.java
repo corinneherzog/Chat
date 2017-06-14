@@ -8,13 +8,14 @@ import java.util.ArrayList;
  * Created by corinne on 6/11/17.
  */
 public class MessageViewerUI {
+      boolean hi = false;
       JFrame frame;
       JPanel panel1;
       JTextPane textPane;
-      String userName = "Corinne";
+      String userName;
       String reciever;
 
-      public MessageViewerUI(){
+      public ClientUI(){
          frame = new JFrame();
          panel1 = new JPanel();
          UI();
@@ -24,7 +25,7 @@ public class MessageViewerUI {
          frame.setLayout(new FlowLayout());
          frame.setSize(new Dimension(250, 300));
          frame.add(panel1);
-         JTextField userTextBox = new JTextField(10);
+         JTextField userTextBox = new JTextField(8);
          frame.add(new JLabel("UserName: "));
          frame.add(userTextBox);
          textPane = new JTextPane();
@@ -38,28 +39,26 @@ public class MessageViewerUI {
                   frame.remove(userTextBox);
                   frame.add(new JLabel(userName));
                   frame.setVisible(true);
-                  textBoxMaker();
+                  hi = true;
               }
           });
       }
-      public void textBoxMaker(){
-         frame.add(textPane);
-         frame.setVisible(true);
-      }
+
       public void addTextBoxes(ArrayList<Message> list){
           Container content = frame.getContentPane();
-          content.setLayout(new GridLayout(0, 1));
-         for(Message message : list){
-            JTextField textBox = new JTextField();
-            textPane.add(textBox);
-            textBox.setText(message.text);
+          content.setLayout(new GridLayout(10, 10));
+         for(int i = 0 ; i < list.size() ; i++){
+            Message message = list.get(i);
+            String text = message.text;
+            JTextField textBox = new JTextField(text);
             if(message.sender.equals(userName)){
-                textBox.setHorizontalAlignment(JTextField.LEFT);
-            }
-            else{
                 textBox.setHorizontalAlignment(JTextField.RIGHT);
             }
-            textBox.setVisible(true);
+            else{
+                textBox.setHorizontalAlignment(JTextField.LEFT);
+            }
+            content.add(textBox);
+            frame.setVisible(true);
          }
       }
    }
