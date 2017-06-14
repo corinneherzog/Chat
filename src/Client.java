@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /*
  * Created by corinne on 6/13/17.
  */
-public class Client {
+public class Client{
     String url;  //"http://localhost:8000/messages";
     final HttpClient client = HttpClientBuilder.create().build();
     final Gson gson = new Gson();
