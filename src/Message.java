@@ -12,6 +12,7 @@ public class Message {
     }
     public Message( String sender , String receiver , String text){
         this.receiver = receiver;
+        this.sender = sender;
         this.text = text;
     }
 

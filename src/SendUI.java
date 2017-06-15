@@ -13,23 +13,17 @@ import java.util.ArrayList;
  * Created by simone on 6/8/17.
  */
 public class SendUI {
-    static String url;
-    static String user = "Corinne";
+    static String url = "http://localhost:8000/messages";
 
     public static void main(String[] args) {
-        if(args[0].length() > 0){
-            url = args[0];
-        }
-        else{
-            url = "http://localhost:8000/messages";
-        }
         Client client = new Client(url);
 
         final JFrame frame = new JFrame();
         final JPanel panel = new JPanel();
         final JButton send = new JButton();
         final JButton refresh = new JButton();
-        final JTextField userTextBox = new JTextField(10);
+        final JTextField senderTextBox = new JTextField(10);
+        final JTextField recieverTextBox = new JTextField(10);
         final JTextArea textBox = new JTextArea(5, 20);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +39,9 @@ public class SendUI {
         frame.add(panel);
         frame.add(new JLabel("To: "));
         frame.add(textBox);
-        frame.add(userTextBox);
+        frame.add(recieverTextBox);
+        frame.add(new JLabel("From:"));
+        frame.add(senderTextBox);
         frame.add(send);
         frame.add(refresh);
         frame.add(new JLabel("Message"));
@@ -54,11 +50,11 @@ public class SendUI {
         Gson gson = new Gson();
 
         send.addActionListener(e ->  {
-            String receiver = userTextBox.getText();
+            String receiver = recieverTextBox.getText();
             String text = textBox.getText();
-            Message message = new Message(receiver, text);
+            String user = senderTextBox.getText();
+            Message message = new Message(user, receiver , text);
             client.postRequest(message);
-
         });
 
     }

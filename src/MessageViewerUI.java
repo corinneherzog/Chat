@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,18 +31,19 @@ public class MessageViewerUI {
       public MessageViewerUI(Client client) {
           this.client = client;
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-          frame.setLayout(new FlowLayout());
           frame.setSize(new Dimension(250, 300));
           frame.add(panel1);
-          JTextField userTextBox = new JTextField(8);
-          frame.add(userTextBox);
-          textPane.setSize(500, 500);
-          textPane.setEditable(false);
-          frame.add(refresh);
+          panel1.setSize(new Dimension(250,300));
+
+          panel1.setLayout(new BoxLayout(panel1 , BoxLayout.PAGE_AXIS));
+          JTextField userTextBox = new JTextField();
+          userTextBox.setSize(250,10);
+          panel1.add(userTextBox);
+          panel1.add(refresh);
+          refresh.setText("refresh");
           frame.setVisible(true);
 
 
-          // textPane.setBounds()
           refresh.addActionListener(e -> {
               ArrayList<Message> list = client.getRequest(userName);
               addTextBoxes(list);
@@ -50,9 +52,9 @@ public class MessageViewerUI {
 
           userTextBox.addActionListener(e -> {
               userName = userTextBox.getText();
-              frame.remove(userTextBox);
-              frame.add(new JLabel(userName));
-              frame.setVisible(true);
+              panel1.remove(userTextBox);
+              panel1.add(new JLabel(userName));
+              panel1.setVisible(true);
 
 
           });
@@ -60,8 +62,6 @@ public class MessageViewerUI {
       }
 
       public void addTextBoxes(ArrayList<Message> list){
-          Container content = frame.getContentPane();
-          content.setLayout(new GridLayout(10, 10));
          for(int i = 0 ; i < list.size() ; i++){
             Message message = list.get(i);
             String text = message.text;
@@ -72,7 +72,11 @@ public class MessageViewerUI {
             else{
                 textBox.setHorizontalAlignment(JTextField.LEFT);
             }
-            content.add(textBox);
+            textBox.setSize(new Dimension(100,10 ));
+            textBox.setCaretColor(Color.BLUE);
+            textBox.setEditable(false);
+            panel1.add(textBox);
+            panel1.setVisible(true);
             frame.setVisible(true);
          }
       }
