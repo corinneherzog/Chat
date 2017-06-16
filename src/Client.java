@@ -1,3 +1,4 @@
+//import files to make it work
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
@@ -17,16 +18,20 @@ import java.util.ArrayList;
 /**
  * Created by corinne on 6/13/17.
  */
+
 public class Client {
+    //fields
     String url;
     final HttpClient httpClient = HttpClientBuilder.create().build();
     final Gson gson = new Gson();
 
+    //Input the ui and construces it
     public Client(String url){
         this.url = url;
 
     }
-
+    
+    //input user creates chat and output empty message arraylist
     public ArrayList<Message> getRequest(String user) {
         final HttpClient httpClient = HttpClientBuilder.create().build();
         String url = "http://localhost:8000/messages";
@@ -51,6 +56,7 @@ public class Client {
         return new ArrayList<Message>();
     }
 
+    //sends new information the the server
     public void postRequest(Message message) {
         String jSon = gson.toJson(message);
         HttpPost post = new HttpPost(url);
