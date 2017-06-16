@@ -1,6 +1,7 @@
 /**
  * Created by corinne on 5/24/17.
  */
+//import methodes that make it work
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.sql.Timestamp;
@@ -15,6 +16,7 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.Headers;
 
 public class Server {
+    //fields
     static HashMap<String, ArrayList<Message>> hm = new HashMap<>();
     static Timestamp prevTimeStamp = new Timestamp(System.currentTimeMillis());
 
@@ -24,7 +26,8 @@ public class Server {
         server.setExecutor(null);
         server.start();
     }
-
+    
+    //handels the post and get messages and sends that to user
     static class Handler implements HttpHandler {
         public void handle(HttpExchange hte) throws IOException{
         Gson gson = new Gson();
@@ -55,7 +58,8 @@ public class Server {
         out.write(response);
         out.close();
         }
-
+        
+        //stores the data of the message  and puts it into a hashmap
         public void storeData(BufferedReader in,Gson gson, String user) throws IOException{
             String json = in.readLine();
             Message message = gson.fromJson(json, Message.class);
