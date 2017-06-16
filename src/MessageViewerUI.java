@@ -1,3 +1,4 @@
+//import statments to make it work
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -9,14 +10,14 @@ import java.util.ArrayList;
  * Created by corinne on 6/11/17.
  */
 public class MessageViewerUI {
-
+      //fields
       final JFrame frame = new JFrame();
       final JPanel panel1 = new JPanel();
       final JTextPane textPane = new JTextPane();
       final JButton refresh = new JButton();
       String userName = "Corinne";
       Client client;
-
+     //Main methode creates the url and creates the client object  
       public static void main(String[] args){
           String url;
           if(args.length > 0){
@@ -27,7 +28,7 @@ public class MessageViewerUI {
           }
           MessageViewerUI ui = new MessageViewerUI(new Client(url));
       }
-
+      //creates the client ui
       public MessageViewerUI(Client client) {
           this.client = client;
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,13 +44,13 @@ public class MessageViewerUI {
           refresh.setText("refresh");
           frame.setVisible(true);
 
-
+          //actionliserner for refresh button creates a message array and adds textboxs to the ui.
           refresh.addActionListener(e -> {
               ArrayList<Message> list = client.getRequest(userName);
               addTextBoxes(list);
 
           });
-
+          //actionliserner for usertextbox gets the test and adds the  users name
           userTextBox.addActionListener(e -> {
               userName = userTextBox.getText();
               panel1.remove(userTextBox);
@@ -61,6 +62,7 @@ public class MessageViewerUI {
 
       }
 
+      //creates the textboxes for the messages and adds the words to the boxs
       public void addTextBoxes(ArrayList<Message> list){
          for(int i = 0 ; i < list.size() ; i++){
             Message message = list.get(i);
