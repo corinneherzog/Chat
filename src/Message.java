@@ -17,10 +17,6 @@ public class Message {
         this.sender = sender;
         this.text = text;
     }
-    //constructs a message object
-    public Message(){
-
-    }
     //prints all the information in string form
     public String toString(){
         return("Sender: " + receiver + ", Receiver: " + sender + ", Time Stamp: " + timeStamp.toString() + ", Text: " + text);
