@@ -16,7 +16,7 @@ import com.sun.net.httpserver.Headers;
 
 public class Server {
     static HashMap<String, ArrayList<Message>> hm = new HashMap<>();
-    static Timestamp prevTimeStamp = new Timestamp(System.currentTimeMillis());
+
 
     public static void main(String[] args) throws IOException{
         HttpServer server = HttpServer.create(new InetSocketAddress(8000),0);
@@ -32,23 +32,22 @@ public class Server {
         String response = "";
 
         String cmd = hte.getRequestMethod();
-        Headers headers = hte.getRequestHeaders();
-        String user = headers.getFirst("user");
+        Headers requestHeaders = hte.getRequestHeaders();
+        String user = requestHeaders.getFirst("user");
         if (cmd.equals("POST")) {
             storeData(in, gson ,user);
             response = "";
         }
         else if(cmd.equals("GET")){
             ArrayList<Message> list = hm.get(user);
-            ArrayList<Message> listOut = new ArrayList<>();
-            for(int i = 0 ; i < list.size() ; i++){
-                if(list.get(i).timeStamp.after(prevTimeStamp)){
-                    listOut.add(list.get(i));
-                }
-            }
-            prevTimeStamp.setTime(System.currentTimeMillis());
-            response = gson.toJson(listOut);
+            response = gson.toJson(list);
         }
+        Headers responseHeaders = hte.getResponseHeaders();
+        responseHeaders.add("Access-Control-Allow-Headers","x-prototype-version,x-requested-with" );
+        responseHeaders.add("Access-Control-Allow-Headers","user" );
+        responseHeaders.add("Access-Control-Allow-Methods","GET,POST");
+        responseHeaders.add("Access-Control-Allow-Origin","*");
+
         hte.sendResponseHeaders(200, response.getBytes().length);
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(hte.getResponseBody()));
 

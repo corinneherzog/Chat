@@ -32,14 +32,11 @@ public class MessageViewerUI {
           this.client = client;
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           frame.setSize(new Dimension(250, 300));
-          frame.add(panel1);
-          panel1.setSize(new Dimension(250,300));
 
           panel1.setLayout(new BoxLayout(panel1 , BoxLayout.PAGE_AXIS));
-          JTextField userTextBox = new JTextField();
-          userTextBox.setSize(250,10);
-          panel1.add(userTextBox);
-          panel1.add(refresh);
+          JTextField userTextBox = new JTextField(10);
+         frame.add(userTextBox);
+          frame.add(refresh);
           refresh.setText("refresh");
           frame.setVisible(true);
 
@@ -52,9 +49,9 @@ public class MessageViewerUI {
 
           userTextBox.addActionListener(e -> {
               userName = userTextBox.getText();
-              panel1.remove(userTextBox);
-              panel1.add(new JLabel(userName));
-              panel1.setVisible(true);
+              frame.remove(userTextBox);
+              frame.add(new JLabel(userName));
+              frame.setVisible(true);
 
 
           });
@@ -72,11 +69,9 @@ public class MessageViewerUI {
             else{
                 textBox.setHorizontalAlignment(JTextField.LEFT);
             }
-            textBox.setSize(new Dimension(100,10 ));
             textBox.setCaretColor(Color.BLUE);
             textBox.setEditable(false);
-            panel1.add(textBox);
-            panel1.setVisible(true);
+            frame.add(textBox);
             frame.setVisible(true);
          }
       }
