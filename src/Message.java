@@ -6,12 +6,13 @@ public class Message {
     String sender;
     Timestamp timeStamp;
     String text;
-    //constructs the reciver and the message
+
+    //Creates a new message given text and receiver
     public Message( String receiver , String text){
         this.receiver = receiver;
         this.text = text;
     }
-    //constructs the sender, the reciver, and the message
+    //Creates a new message with sender, receiver, and text
     public Message( String sender , String receiver , String text){
         this.receiver = receiver;
         this.sender = sender;

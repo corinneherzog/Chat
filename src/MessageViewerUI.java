@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by corinne on 6/11/17.
+ * This UI doesn't currently work - see webclient created using js, html, css. We left it anyway to show learning
  */
 public class MessageViewerUI {
       //fields
@@ -17,7 +18,7 @@ public class MessageViewerUI {
       final JButton refresh = new JButton();
       String userName = "Corinne";
       Client client;
-     //Main methode creates the url and creates the client object  
+     //Main method creates MessageViwer UI and takes in url
       public static void main(String[] args){
           String url;
           if(args.length > 0){
@@ -28,7 +29,7 @@ public class MessageViewerUI {
           }
           MessageViewerUI ui = new MessageViewerUI(new Client(url));
       }
-      //creates the client ui
+      //creates the MessageViewerUI
       public MessageViewerUI(Client client) {
           this.client = client;
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,13 +42,15 @@ public class MessageViewerUI {
           refresh.setText("refresh");
           frame.setVisible(true);
 
-          //actionliserner for refresh button creates a message array and adds textboxs to the ui.
+          /*Action Listener for refresh button
+          gets messages from server and stores as arraylist. Calls method to add text boxes
+          */
           refresh.addActionListener(e -> {
               ArrayList<Message> list = client.getRequest(userName);
               addTextBoxes(list);
 
           });
-          //actionliserner for usertextbox gets the test and adds the  users name
+          //When user presses enter their username is read in and stored
           userTextBox.addActionListener(e -> {
               userName = userTextBox.getText();
               frame.remove(userTextBox);
@@ -59,7 +62,7 @@ public class MessageViewerUI {
 
       }
 
-      //creates the textboxes for the messages and adds the words to the boxs
+      //creates the textboxes for the messages and adds the text to the boxes
       public void addTextBoxes(ArrayList<Message> list){
          for(int i = 0 ; i < list.size() ; i++){
             Message message = list.get(i);

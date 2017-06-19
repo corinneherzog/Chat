@@ -25,13 +25,13 @@ public class Client {
     final HttpClient httpClient = HttpClientBuilder.create().build();
     final Gson gson = new Gson();
 
-    //Input the ui and construces it
+    //Given a url constructs a client with this url
     public Client(String url){
         this.url = url;
 
     }
     
-    //input user creates chat and output empty message arraylist
+    //Given a user performs a get request for this user's messages
     public ArrayList<Message> getRequest(String user) {
         final HttpClient httpClient = HttpClientBuilder.create().build();
         String url = "http://localhost:8000/messages";
@@ -56,7 +56,7 @@ public class Client {
         return new ArrayList<Message>();
     }
 
-    //sends new information the the server
+    //posts a new message to the server
     public void postRequest(Message message) {
         String jSon = gson.toJson(message);
         HttpPost post = new HttpPost(url);

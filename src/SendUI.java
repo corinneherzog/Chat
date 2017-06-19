@@ -13,10 +13,16 @@ import java.util.ArrayList;
  * Created by simone on 6/8/17.
  */
 public class SendUI {
-    //fields 
-    static String url = "http://localhost:8000/messages";
-    //creates the message sender ui
+    static String url;
+
+    //sets up the message sender ui and creates a new client with a certain url
     public static void main(String[] args) {
+        if(args.length < 0){
+            url = args[0]
+        }
+        else{
+            url = "http://localhost:8000/messages";
+        }
         Client client = new Client(url);
 
         final JFrame frame = new JFrame();
@@ -49,7 +55,8 @@ public class SendUI {
         frame.add(new JScrollPane(textBox));
         frame.setVisible(true);
         Gson gson = new Gson();
-        //action lisiner for send button. Sends the message to the client
+
+        //When send button is clicked creates a new message and posts to server
         send.addActionListener(e ->  {
             String receiver = recieverTextBox.getText();
             String text = textBox.getText();
