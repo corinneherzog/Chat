@@ -1,4 +1,4 @@
-
+//import messages that make it work
 import com.google.gson.Gson;
 
 import java.awt.event.ActionListener;
@@ -13,8 +13,9 @@ import java.util.ArrayList;
  * Created by simone on 6/8/17.
  */
 public class SendUI {
+    //fields 
     static String url = "http://localhost:8000/messages";
-
+    //creates the message sender ui
     public static void main(String[] args) {
         Client client = new Client(url);
 
@@ -48,7 +49,7 @@ public class SendUI {
         frame.add(new JScrollPane(textBox));
         frame.setVisible(true);
         Gson gson = new Gson();
-
+        //action lisiner for send button. Sends the message to the client
         send.addActionListener(e ->  {
             String receiver = recieverTextBox.getText();
             String text = textBox.getText();
