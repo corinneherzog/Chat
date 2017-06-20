@@ -18,6 +18,7 @@ public class MessageViewerUI {
       final JButton refresh = new JButton();
       String userName = "Corinne";
       Client client;
+
      //Main method creates MessageViwer UI and takes in url
       public static void main(String[] args){
           String url;

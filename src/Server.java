@@ -39,11 +39,13 @@ public class Server {
             storeData(in, gson ,user);
             response = "";
         }
+        // gets the users messages and converts to jSon
         else if(cmd.equals("GET")){
             ArrayList<Message> list = hm.get(user);
             response = gson.toJson(list);
         }
         Headers responseHeaders = hte.getResponseHeaders();
+        // adds headers to allow access to web server
         responseHeaders.add("Access-Control-Allow-Headers","x-prototype-version,x-requested-with" );
         responseHeaders.add("Access-Control-Allow-Headers","user" );
         responseHeaders.add("Access-Control-Allow-Methods","GET,POST");
@@ -57,7 +59,7 @@ public class Server {
         }
         
         //Reads in data, converts it into a message object from jSon and stores it in a hashmap
-        //Each user(key) has an arraylist of all of the messages they've both sent and receiver.
+        //Each user(key) has an arraylist of all of the messages they've both sent and received.
         public void storeData(BufferedReader in,Gson gson, String user) throws IOException{
             String json = in.readLine();
             Message message = gson.fromJson(json, Message.class);

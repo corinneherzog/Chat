@@ -32,6 +32,7 @@ public class Client {
     }
     
     //Given a user performs a get request for this user's messages
+    // returns an arraylist of that user's messages
     public ArrayList<Message> getRequest(String user) {
         final HttpClient httpClient = HttpClientBuilder.create().build();
         String url = "http://localhost:8000/messages";
@@ -39,11 +40,13 @@ public class Client {
         HttpGet get = new HttpGet(url);
         get.setHeader("accept", "application/json");
         get.setHeader("user", user);
+        // first need to create a new object that is an arraylist of messages
         Type collectionType = new TypeToken<ArrayList<Message>>() {
         }.getType();
 
 
         try {
+            // then all of the users messages can be converted from jSon straight into that arraylist of messages
             HttpResponse response = httpClient.execute(get);
             BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             String jSon = br.readLine();
@@ -56,7 +59,7 @@ public class Client {
         return new ArrayList<Message>();
     }
 
-    //posts a new message to the server
+    //converts a given message to jSon and posts to server
     public void postRequest(Message message) {
         String jSon = gson.toJson(message);
         HttpPost post = new HttpPost(url);
