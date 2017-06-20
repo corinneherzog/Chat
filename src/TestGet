@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+
+/**
+ * Created by corinne on 6/19/17.
+ */
+public class TestGet {
+    public static void main(String[] args){
+        Client client = new Client("http://localhost:8000/messages");
+        ArrayList<Message> list = client.getRequest("Corinne");
+        System.out.println(list);
+
+    }
+
+}
