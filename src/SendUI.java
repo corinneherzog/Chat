@@ -18,7 +18,7 @@ public class SendUI {
     //sets up the message sender ui and creates a new client with a certain url
     public static void main(String[] args) {
         if(args.length < 0){
-            url = args[0]
+            url = args[0];
         }
         else{
             url = "http://localhost:8000/messages";
