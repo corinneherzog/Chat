@@ -1,6 +1,6 @@
 /**
  * Created by corinne on 6/15/17.
- * To run this client click on index.html from your local drive(normally the web app would come from the server).
+ * To run this client click on index.html from your local drive(normally the web app would come from the server but this would require static web server).
  */
 
 var friends = {};
