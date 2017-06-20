@@ -1,7 +1,9 @@
 /**
  * Created by corinne on 6/15/17.
+ *This is a single page app style application
  * To run this client click on index.html from your local drive(normally the web app would come from the server but this would require static web server).
  */
+
 
 var friends = {};
 var user;
@@ -19,7 +21,7 @@ function main() {
     getRequest();
 
 }
-// indicates which page user is currently on
+// indicates which page user is currently on so that refresh will refresh the right page
 function displayPage(name, p2) {
     controller.page = name;
     if (p2) {
@@ -29,7 +31,7 @@ function displayPage(name, p2) {
         delete controller.p2;
     }
 }
-// when clicked posts message to server
+// when send button is clicked it calls this function and posts message to server
 function sendClicked(peer){
     var input = $('#newMessage');
     var newMessage = input.val();
@@ -48,6 +50,7 @@ function sendClicked(peer){
     var message = { "sender": user, "receiver": peer , "text" : newMessage}
     var json = JSON.stringify(message);
     xhr.send(json);
+    // to refresh this page
     displayPage("messages",peer);
     getRequest();
 
@@ -75,7 +78,8 @@ function getRequest() {
     }
     xhr.send(null);
 }
-// processes data from the server and pushes it to array of friends which stores all of the messages from all this user's friends
+// processes data from the server and pushes it to array of friends
+// friends array holds peers - each peer holds array of messages
 function processData(messages) {
     friends = {};
     var peer;
@@ -98,7 +102,7 @@ function processData(messages) {
 function showMessages(peer){
     var output = "<div class = user>  " + peer + " </div><div id=messageArea ></div>";
 
-
+    // only adds frame(textarea, button) on the first time page is loaded
     if (controller.page != "messages") {
         displayPage("messages" , peer);
         output += "<textarea id = newMessage></textarea>";
@@ -106,7 +110,7 @@ function showMessages(peer){
         output += `<button type=button onclick = "showPeers()"> back</button>`;
         $('body').html(output);
     }
-
+    // updates messages every time page refreshes
     var messageOutput = "";
     if(friends[peer]) {
         for (var i = 0; i < friends[peer].length; i++) {
@@ -136,7 +140,9 @@ function showPeers(){
     $( "div" ).click(function(e) {
         showMessages(e.target.id);
     });
+    // makes sure that controller stays on this page before being refreshed
     displayPage("peers");
+    // refreshes every second
     setTimeout("getRequest()" , 1000);
 
 }
